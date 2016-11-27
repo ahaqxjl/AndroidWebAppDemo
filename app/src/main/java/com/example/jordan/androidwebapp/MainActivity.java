@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,7 +34,25 @@ public class MainActivity extends AppCompatActivity {
             try {
                 URI uri = new URI("http://www.baidu.com");
                 URL url = uri.toURL();
-                InputStream inputStream = url.openStream();
+//                InputStream inputStream = url.openStream();
+//                byte[] bytes = new byte[250];
+//                int readSize = inputStream.read(bytes);
+//
+//                Log.i(MainActivity.class.getName(), "Read size: " + readSize);
+//                // decode as utf-8, or the Chinese character will not be displayed correctly
+//                // but it always display incorrectly while testing on virtual machine
+//                Log.i(MainActivity.class.getName(), "bytes: " + new String(bytes, "utf-8"));
+//
+//                inputStream.close();
+
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+
+                Log.i(MainActivity.class.getName(), "length: " + connection.getContentLength());
+                Log.i(MainActivity.class.getName(), "response code: " + connection.getResponseCode());
+                Log.i(MainActivity.class.getName(), "content type: " + connection.getContentType());
+                Log.i(MainActivity.class.getName(), "content: " + connection.getContent());
+
+                InputStream inputStream = connection.getInputStream();
                 byte[] bytes = new byte[250];
                 int readSize = inputStream.read(bytes);
 
