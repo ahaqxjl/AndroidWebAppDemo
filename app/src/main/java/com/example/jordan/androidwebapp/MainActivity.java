@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 int readSize = inputStream.read(bytes);
 
                 Log.i(MainActivity.class.getName(), "Read size: " + readSize);
+                // decode as utf-8, or the Chinese character will not be displayed correctly
+                // but it always display incorrectly while testing on virtual machine
                 Log.i(MainActivity.class.getName(), "bytes: " + new String(bytes, "utf-8"));
 
                 inputStream.close();
